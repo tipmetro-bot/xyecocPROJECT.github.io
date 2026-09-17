@@ -25,6 +25,122 @@
     background: #000;
   }
 
+  /* ================ БУРГЕР ================ */
+  .burger {
+    position: fixed;
+    top: 20px; left: 20px;
+    width: 50px; height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    padding: 10px;
+  }
+
+  .burger:hover {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    transform: scale(1.05);
+  }
+
+  .burger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ================ БОКОВОЕ МЕНЮ ================ */
+  .side-menu {
+    position: fixed;
+    top: 0; left: -320px;
+    width: 300px; height: 100%;
+    background: #0a0a0a;
+    border-right: 2px solid #fff;
+    z-index: 150;
+    padding: 90px 0 20px;
+    transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .side-menu.open {
+    left: 0;
+    box-shadow: 10px 0 50px rgba(255,255,255,0.15);
+  }
+
+  .side-menu-title {
+    padding: 0 25px 15px;
+    color: #555;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #222;
+    margin-bottom: 15px;
+  }
+
+  .side-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 25px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .side-menu-item:hover {
+    background: rgba(255,255,255,0.06);
+    border-left-color: #fff;
+    padding-left: 30px;
+  }
+
+  .side-menu-item .icon { font-size: 18px; width: 22px; text-align: center; }
+  .side-menu-item .label { flex: 1; }
+
+  .side-menu-item .badge {
+    background: #00ff9f;
+    color: #000;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
+  .side-menu-item.donate:hover {
+    border-left-color: #ffaa00;
+    background: rgba(255,170,0,0.08);
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 140;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .overlay.show { opacity: 1; pointer-events: auto; }
+
+  /* ================ КОНТЕНТ ================ */
   .content {
     position: relative;
     z-index: 1;
@@ -37,11 +153,8 @@
     pointer-events: none;
   }
 
-  .content > * {
-    pointer-events: auto;
-  }
+  .content > * { pointer-events: auto; }
 
-  /* ================ ТИТУЛ ================ */
   .logo {
     text-align: center;
     margin-bottom: 20px;
@@ -91,10 +204,7 @@
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .logo .subtitle.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .logo .subtitle.show { opacity: 1; transform: translateY(0); }
 
   .logo .version {
     font-size: 12px;
@@ -106,21 +216,13 @@
     transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
   }
 
-  .logo .version.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .logo .version.show { opacity: 1; transform: translateY(0); }
 
-  .logo h1.done {
-    animation: glow 3s ease-in-out infinite alternate;
-  }
+  .logo h1.done { animation: glow 3s ease-in-out infinite alternate; }
 
   @keyframes glow {
-    from { text-shadow: 0 0 20px rgba(255,255,255,0.6),
-                        0 0 40px rgba(255,255,255,0.3); }
-    to   { text-shadow: 0 0 30px rgba(255,255,255,1),
-                        0 0 60px rgba(255,255,255,0.6),
-                        0 0 90px rgba(255,255,255,0.3); }
+    from { text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3); }
+    to   { text-shadow: 0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.6), 0 0 90px rgba(255,255,255,0.3); }
   }
 
   /* ================ КНОПКИ ================ */
@@ -136,11 +238,7 @@
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .buttons.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
+  .buttons.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
   .btn {
     display: inline-flex;
@@ -177,12 +275,10 @@
   .buttons.show .btn:nth-child(2) { animation-delay: 0.1s; }
   .buttons.show .btn:nth-child(3) { animation-delay: 0.2s; }
   .buttons.show .btn:nth-child(4) { animation-delay: 0.3s; }
+  .buttons.show .btn:nth-child(5) { animation-delay: 0.4s; }
 
   @keyframes btn-appear {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .btn::before {
@@ -199,54 +295,100 @@
 
   .btn:hover {
     color: #000;
-    box-shadow: 0 0 30px rgba(255,255,255,0.6),
-                0 0 60px rgba(255,255,255,0.3);
+    box-shadow: 0 0 30px rgba(255,255,255,0.6), 0 0 60px rgba(255,255,255,0.3);
     transform: translateY(-3px);
   }
 
-  .btn:hover::before {
-    width: 300px;
-    height: 300px;
-  }
+  .btn:hover::before { width: 300px; height: 300px; }
 
-  .btn:active {
-    transform: translateY(-1px) scale(0.97);
-  }
+  .btn:active { transform: translateY(-1px) scale(0.97); }
 
   .btn svg {
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     fill: currentColor;
-    position: relative;
-    z-index: 1;
+    position: relative; z-index: 1;
   }
 
-  .btn span {
-    position: relative;
-    z-index: 1;
-  }
+  .btn span { position: relative; z-index: 1; }
 
-  /* ================ КНОПКА DOWNLOAD (акцент) ================ */
+  /* ================ КНОПКА DOWNLOAD ================ */
   .btn-download {
     border-color: #00ff9f;
     color: #00ff9f;
     animation: download-pulse 2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
   }
 
   .btn-download::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
     background: #00ff9f;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+    z-index: -1;
+    opacity: 0.2;
   }
 
   .btn-download:hover {
     color: #000;
-    box-shadow: 0 0 30px rgba(0,255,159,0.8),
-                0 0 60px rgba(0,255,159,0.4);
+    box-shadow: 0 0 30px rgba(0,255,159,0.8), 0 0 60px rgba(0,255,159,0.4);
   }
+
+  .btn-download:hover::before {
+    width: 250px; height: 250px;
+    opacity: 1;
+  }
+
+  .btn-download span, .btn-download svg { position: relative; z-index: 2; }
 
   @keyframes download-pulse {
     0%, 100% { box-shadow: 0 0 0 rgba(0,255,159,0); }
-    50%      { box-shadow: 0 0 25px rgba(0,255,159,0.6),
-                           0 0 50px rgba(0,255,159,0.3); }
+    50%      { box-shadow: 0 0 25px rgba(0,255,159,0.5), 0 0 50px rgba(0,255,159,0.2); }
+  }
+
+  /* ================ КНОПКА SUPPORT ================ */
+  .btn-support {
+    border-color: #ffaa00;
+    color: #ffaa00;
+    animation: support-pulse 2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .btn-support::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: #ffaa00;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+    z-index: -1;
+    opacity: 0.2;
+  }
+
+  .btn-support:hover {
+    color: #000;
+    box-shadow: 0 0 30px rgba(255,170,0,0.8), 0 0 60px rgba(255,170,0,0.4);
+  }
+
+  .btn-support:hover::before {
+    width: 250px; height: 250px;
+    opacity: 1;
+  }
+
+  .btn-support span, .btn-support svg { position: relative; z-index: 2; }
+
+  @keyframes support-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255,170,0,0); }
+    50%      { box-shadow: 0 0 25px rgba(255,170,0,0.5), 0 0 50px rgba(255,170,0,0.2); }
   }
 
   /* ================ RIPPLE ================ */
@@ -260,31 +402,25 @@
   }
 
   @keyframes ripple-anim {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
+    to { transform: scale(4); opacity: 0; }
   }
 
-  .btn.clicked {
-    animation: click-flash 0.5s ease;
-  }
+  .btn.clicked { animation: click-flash 0.5s ease; }
 
   @keyframes click-flash {
     0%   { box-shadow: 0 0 0 rgba(255,255,255,0); }
-    50%  { box-shadow: 0 0 40px rgba(255,255,255,1),
-                       0 0 80px rgba(255,255,255,0.6); }
+    50%  { box-shadow: 0 0 40px rgba(255,255,255,1), 0 0 80px rgba(255,255,255,0.6); }
     100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
   }
 
-  /* Модалки */
+  /* ================ МОДАЛКИ ================ */
   .modal {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.85);
-    z-index: 100;
+    z-index: 300;
     align-items: center;
     justify-content: center;
     padding: 20px;
@@ -292,10 +428,7 @@
     transition: opacity 0.3s ease;
   }
 
-  .modal.active {
-    display: flex;
-    opacity: 1;
-  }
+  .modal.active { display: flex; opacity: 1; }
 
   .modal-content {
     background: #0a0a0a;
@@ -312,9 +445,7 @@
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .modal.active .modal-content {
-    transform: scale(1) translateY(0);
-  }
+  .modal.active .modal-content { transform: scale(1) translateY(0); }
 
   .modal-content h2 {
     font-size: 24px;
@@ -339,10 +470,7 @@
     font-size: 14px;
   }
 
-  .modal-content ul {
-    list-style: none;
-    margin-bottom: 15px;
-  }
+  .modal-content ul { list-style: none; margin-bottom: 15px; }
 
   .modal-content li {
     padding: 6px 0;
@@ -371,16 +499,11 @@
     user-select: all;
   }
 
-  .code-block::before {
-    content: '$';
-    color: #555;
-    margin-right: 10px;
-  }
+  .code-block::before { content: '$'; color: #555; margin-right: 10px; }
 
   .close-btn {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 15px; right: 20px;
     background: none;
     border: none;
     color: #fff;
@@ -388,14 +511,10 @@
     cursor: pointer;
     transition: transform 0.3s;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
   }
 
-  .close-btn:hover {
-    transform: rotate(90deg);
-    background: rgba(255,255,255,0.1);
-  }
+  .close-btn:hover { transform: rotate(90deg); background: rgba(255,255,255,0.1); }
 
   .team-section {
     margin-top: 15px;
@@ -414,9 +533,7 @@
     text-transform: uppercase;
   }
 
-  .team-section .role:first-child {
-    margin-top: 0;
-  }
+  .team-section .role:first-child { margin-top: 0; }
 
   .team-section .name {
     color: #fff;
@@ -424,6 +541,186 @@
     margin-left: 10px;
   }
 
+  /* ================ СЕРВЕРА ================ */
+  .servers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .server-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 18px;
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .server-item:hover {
+    background: #141414;
+    border-color: #00ff9f;
+    transform: translateX(5px);
+    box-shadow: 0 0 20px rgba(0,255,159,0.2);
+  }
+
+  .server-item .server-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid #333;
+  }
+
+  .server-item .server-info { flex: 1; min-width: 0; }
+
+  .server-item .server-name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .server-item .server-desc {
+    color: #888;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .server-item .server-status {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #00ff9f;
+    box-shadow: 0 0 10px #00ff9f;
+    flex-shrink: 0;
+  }
+
+  .server-item.donate:hover {
+    border-color: #ffaa00;
+    box-shadow: 0 0 20px rgba(255,170,0,0.3);
+  }
+
+  /* ================ ЧАТ ================ */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .chat-header {
+    padding: 12px 18px;
+    background: #141414;
+    border-bottom: 1px solid #222;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .chat-header .chat-dot {
+    width: 10px; height: 10px;
+    background: #00ff9f;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff9f;
+  }
+
+  .chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #ccc;
+  }
+
+  .chat-messages .msg {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border-left: 2px solid #00ff9f;
+  }
+
+  .chat-messages .msg .msg-author {
+    color: #00ff9f;
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .chat-messages .msg .msg-time {
+    color: #555;
+    font-size: 10px;
+    margin-left: 8px;
+  }
+
+  .chat-input {
+    display: flex;
+    padding: 10px;
+    gap: 8px;
+    background: #141414;
+    border-top: 1px solid #222;
+  }
+
+  .chat-input input {
+    flex: 1;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fff;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border 0.2s;
+  }
+
+  .chat-input input:focus {
+    border-color: #00ff9f;
+    box-shadow: 0 0 15px rgba(0,255,159,0.2);
+  }
+
+  .chat-input input::placeholder { color: #444; }
+
+  .chat-input button {
+    background: #00ff9f;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .chat-input button:hover {
+    box-shadow: 0 0 20px rgba(0,255,159,0.6);
+    transform: scale(1.03);
+  }
+
+  /* ================ ФУТЕР ================ */
   .footer {
     position: fixed;
     bottom: 15px;
@@ -438,23 +735,74 @@
     transition: opacity 1s ease 0.5s;
   }
 
-  .footer.show {
-    opacity: 1;
-  }
+  .footer.show { opacity: 1; }
 
   @media (max-width: 600px) {
-    .btn {
-      padding: 14px 28px;
-      font-size: 12px;
-    }
+    .btn { padding: 14px 28px; font-size: 12px; }
     .buttons { gap: 12px; }
     .modal-content { padding: 30px 20px; }
+    .burger { width: 44px; height: 44px; top: 15px; left: 15px; }
+    .side-menu { width: 260px; }
   }
 </style>
 </head>
 <body>
 
 <canvas id="bg-canvas"></canvas>
+
+<button class="burger" id="burger" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<aside class="side-menu" id="side-menu">
+  <div class="side-menu-title">Menu</div>
+
+  <a class="side-menu-item" onclick="openModal('servers-modal'); toggleMenu()">
+    <span class="icon">🖥</span>
+    <span class="label">Servers</span>
+    <span class="badge">7</span>
+  </a>
+
+  <a class="side-menu-item" onclick="openModal('chat-modal'); toggleMenu()">
+    <span class="icon">💬</span>
+    <span class="label">Chat</span>
+    <span class="badge">live</span>
+  </a>
+
+  <a class="side-menu-item" onclick="openModal('about-modal'); toggleMenu()">
+    <span class="icon">ℹ</span>
+    <span class="label">About Us</span>
+  </a>
+
+  <a class="side-menu-item" onclick="openModal('install-modal'); toggleMenu()">
+    <span class="icon">⬇</span>
+    <span class="label">How to Install</span>
+  </a>
+
+  <a class="side-menu-item" href="https://github.com/tipmetro-bot/xyecocPROJECT" target="_blank">
+    <span class="icon">★</span>
+    <span class="label">GitHub</span>
+  </a>
+
+  <div class="side-menu-title" style="margin-top:25px">Support</div>
+
+  <a class="side-menu-item donate" href="https://dalink.to/donateprojectg" target="_blank">
+    <span class="icon">❤</span>
+    <span class="label">Donate to devs</span>
+    <span class="badge" style="background:#ffaa00">♥</span>
+  </a>
+
+  <div class="side-menu-title" style="margin-top:25px">Downloads</div>
+
+  <a class="side-menu-item" href="https://github.com/tipmetro-bot/APIinstallLOVExyecocproject/releases/download/sp/xyecocproject.zip">
+    <span class="icon">📦</span>
+    <span class="label">xyecocproject.zip</span>
+  </a>
+</aside>
 
 <div class="content">
   <div class="logo">
@@ -465,7 +813,7 @@
 
   <div class="buttons" id="buttons">
 
-    <a href="https://github.com/tipmetro-bot/xyecocPROJECT/releases/download/osint/xyecocproject.zip"
+    <a href="https://github.com/tipmetro-bot/APIinstallLOVExyecocproject/releases/download/sp/xyecocproject.zip"
        class="btn btn-download" download
        onclick="ripple(event, this)">
       <svg viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
@@ -485,12 +833,117 @@
       <span>How to Install</span>
     </button>
 
+    <a href="https://dalink.to/donateprojectg" target="_blank" class="btn btn-support" onclick="ripple(event, this)">
+      <svg viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg>
+      <span>Support Devs</span>
+    </a>
+
   </div>
 </div>
 
 <div class="footer" id="footer">© 2026 XYECOCPROJECT — ALL RIGHTS RESERVED</div>
 
-<!-- ABOUT MODAL -->
+<!-- ================ MODAL: SERVERS ================ -->
+<div class="modal" id="servers-modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('servers-modal')">×</button>
+    <h2>Servers</h2>
+    <p>Servers related to the xyecocPROJECT Python tool. Click to open.</p>
+
+    <div class="servers-list">
+
+      <a class="server-item" href="https://github.com/tipmetro-bot/xyecocPROJECT" target="_blank">
+        <div class="server-icon">🐍</div>
+        <div class="server-info">
+          <div class="server-name">Main Repository</div>
+          <div class="server-desc">tipmetro-bot/xyecocPROJECT — source code</div>
+        </div>
+        <div class="server-status"></div>
+      </a>
+
+      <a class="server-item" href="https://github.com/tipmetro-bot/APIinstallLOVExyecocproject" target="_blank">
+        <div class="server-icon">📥</div>
+        <div class="server-info">
+          <div class="server-name">Install Server</div>
+          <div class="server-desc">APIinstallLOVExyecocproject — installer releases</div>
+        </div>
+        <div class="server-status"></div>
+      </a>
+
+      <a class="server-item" href="https://github.com/tipmetro-bot/APIinstallLOVExyecocproject/releases" target="_blank">
+        <div class="server-icon">📦</div>
+        <div class="server-info">
+          <div class="server-name">Releases</div>
+          <div class="server-desc">Download the latest builds</div>
+        </div>
+        <div class="server-status"></div>
+      </a>
+
+      <a class="server-item donate" href="https://dalink.to/donateprojectg" target="_blank">
+        <div class="server-icon">❤</div>
+        <div class="server-info">
+          <div class="server-name">Donation Server</div>
+          <div class="server-desc">dalink.to/donateprojectg — support the developers</div>
+        </div>
+        <div class="server-status" style="background:#ffaa00;box-shadow:0 0 10px #ffaa00"></div>
+      </a>
+
+      <a class="server-item" href="https://github.com/tipmetro-bot/xyecocPROJECT/issues" target="_blank">
+        <div class="server-icon">🐞</div>
+        <div class="server-info">
+          <div class="server-name">Issues</div>
+          <div class="server-desc">Bug reports and feature requests</div>
+        </div>
+        <div class="server-status"></div>
+      </a>
+
+      <a class="server-item" href="https://github.com/tipmetro-bot/xyecocPROJECT/discussions" target="_blank">
+        <div class="server-icon">💭</div>
+        <div class="server-info">
+          <div class="server-name">Discussions</div>
+          <div class="server-desc">Community chat on GitHub</div>
+        </div>
+        <div class="server-status"></div>
+      </a>
+
+      <a class="server-item" onclick="closeModal('servers-modal'); openModal('chat-modal')" style="cursor:pointer">
+        <div class="server-icon">💬</div>
+        <div class="server-info">
+          <div class="server-name">Live Chat</div>
+          <div class="server-desc">Chat with the community (in-page)</div>
+        </div>
+        <div class="server-status"></div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: CHAT ================ -->
+<div class="modal" id="chat-modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('chat-modal')">×</button>
+    <h2>Live Chat</h2>
+    <p>Local test chat — messages are not sent anywhere, only stored in your browser.</p>
+
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="chat-dot"></div>
+        <span># general</span>
+        <span style="color:#555;margin-left:auto">online: <span id="online-count">1</span></span>
+      </div>
+
+      <div class="chat-messages" id="chat-messages"></div>
+
+      <div class="chat-input">
+        <input type="text" id="chat-input-field" placeholder="Type a message..." maxlength="200" onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()">SEND</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: ABOUT ================ -->
 <div class="modal" id="about-modal">
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal('about-modal')">×</button>
@@ -519,19 +972,22 @@
       <span class="name">mr iron</span>
       <span class="name">dsfsfsdfsdfds</span>
     </div>
+    <h3>Support the developers</h3>
+    <p>If you like the project — you can support us here:</p>
+    <div class="code-block">https://dalink.to/donateprojectg</div>
     <h3>Disclaimer</h3>
     <p>This project is for educational purposes only. Use it only on your own resources or with permission. The authors are not responsible for any misuse.</p>
   </div>
 </div>
 
-<!-- INSTALL MODAL -->
+<!-- ================ MODAL: INSTALL ================ -->
 <div class="modal" id="install-modal">
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal('install-modal')">×</button>
     <h2>How to Install</h2>
 
     <h3>Option 1: Download ZIP (easiest)</h3>
-    <p>Click the green <b>Download</b> button on the main page to get the latest release.</p>
+    <p>Click the green <b>Download</b> button on the main page to get the latest release from APIinstallLOVExyecocproject.</p>
 
     <h3>Option 2: Clone with Git</h3>
     <div class="code-block">git clone https://github.com/tipmetro-bot/xyecocPROJECT.git</div>
@@ -554,7 +1010,7 @@
     <div class="code-block">brew install python-tk</div>
 
     <h3>Run</h3>
-    <div class="code-block">python xyecoc.py</div>
+    <div class="code-block">python xyecocPROJECT.py</div>
 
     <h3>First launch</h3>
     <ul>
@@ -568,7 +1024,18 @@
 </div>
 
 <script>
-/* ================== ФОН (частицы + линии) ================== */
+/* ================== БУРГЕР ================== */
+function toggleMenu() {
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('side-menu');
+  const overlay = document.getElementById('overlay');
+
+  burger.classList.toggle('active');
+  menu.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+/* ================== ФОН ================== */
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -656,7 +1123,7 @@ window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; 
 resize();
 draw();
 
-/* ================== АНИМАЦИЯ ПОЯВЛЕНИЯ ТЕКСТА ================== */
+/* ================== АНИМАЦИЯ ТЕКСТА ================== */
 const FULL_TEXT = "XYECOCPROJECT";
 const titleEl = document.getElementById('title');
 const cursorEl = titleEl.querySelector('.cursor');
@@ -712,6 +1179,8 @@ document.addEventListener('keydown', e => {
     document.querySelectorAll('.modal.active').forEach(m => {
       m.classList.remove('active');
     });
+    const menu = document.getElementById('side-menu');
+    if (menu.classList.contains('open')) toggleMenu();
   }
 });
 
@@ -734,6 +1203,83 @@ function ripple(event, btn) {
   btn.classList.add('clicked');
   setTimeout(() => btn.classList.remove('clicked'), 500);
 }
+
+/* ================== ЧАТ ================== */
+const CHAT_KEY = 'xyecoc_chat_messages';
+
+function loadMessages() {
+  try {
+    return JSON.parse(localStorage.getItem(CHAT_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveMessages(msgs) {
+  try {
+    localStorage.setItem(CHAT_KEY, JSON.stringify(msgs.slice(-100)));
+  } catch (e) {}
+}
+
+function renderMessages() {
+  const box = document.getElementById('chat-messages');
+  if (!box) return;
+  const msgs = loadMessages();
+  box.innerHTML = '';
+
+  if (msgs.length === 0) {
+    box.innerHTML = '<div style="color:#555;text-align:center;padding:30px 10px;font-size:12px;">No messages yet. Be the first to say hi 👋</div>';
+    return;
+  }
+
+  for (const m of msgs) {
+    const div = document.createElement('div');
+    div.className = 'msg';
+    div.innerHTML = `
+      <div class="msg-author">${escapeHtml(m.author)} <span class="msg-time">${m.time}</span></div>
+      <div>${escapeHtml(m.text)}</div>
+    `;
+    box.appendChild(div);
+  }
+  box.scrollTop = box.scrollHeight;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input-field');
+  const text = input.value.trim();
+  if (!text) return;
+
+  let author = localStorage.getItem('xyecoc_chat_author');
+  if (!author) {
+    author = prompt('Enter your nickname:') || 'Anonymous';
+    author = author.slice(0, 20);
+    localStorage.setItem('xyecoc_chat_author', author);
+  }
+
+  const msgs = loadMessages();
+  const now = new Date();
+  const time = String(now.getHours()).padStart(2, '0') + ':' +
+               String(now.getMinutes()).padStart(2, '0');
+
+  msgs.push({ author, text, time });
+  saveMessages(msgs);
+  input.value = '';
+  renderMessages();
+}
+
+document.addEventListener('DOMContentLoaded', renderMessages);
+
+const _origOpen = openModal;
+window.openModal = function(id) {
+  _origOpen(id);
+  if (id === 'chat-modal') setTimeout(renderMessages, 100);
+};
 </script>
 
 </body>
