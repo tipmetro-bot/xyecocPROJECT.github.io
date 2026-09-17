@@ -174,8 +174,9 @@
   }
 
   .buttons.show .btn:nth-child(1) { animation-delay: 0s; }
-  .buttons.show .btn:nth-child(2) { animation-delay: 0.15s; }
-  .buttons.show .btn:nth-child(3) { animation-delay: 0.3s; }
+  .buttons.show .btn:nth-child(2) { animation-delay: 0.1s; }
+  .buttons.show .btn:nth-child(3) { animation-delay: 0.2s; }
+  .buttons.show .btn:nth-child(4) { animation-delay: 0.3s; }
 
   @keyframes btn-appear {
     to {
@@ -225,6 +226,30 @@
     z-index: 1;
   }
 
+  /* ================ КНОПКА DOWNLOAD (акцент) ================ */
+  .btn-download {
+    border-color: #00ff9f;
+    color: #00ff9f;
+    animation: download-pulse 2s ease-in-out infinite;
+  }
+
+  .btn-download::before {
+    background: #00ff9f;
+  }
+
+  .btn-download:hover {
+    color: #000;
+    box-shadow: 0 0 30px rgba(0,255,159,0.8),
+                0 0 60px rgba(0,255,159,0.4);
+  }
+
+  @keyframes download-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(0,255,159,0); }
+    50%      { box-shadow: 0 0 25px rgba(0,255,159,0.6),
+                           0 0 50px rgba(0,255,159,0.3); }
+  }
+
+  /* ================ RIPPLE ================ */
   .ripple {
     position: absolute;
     border-radius: 50%;
@@ -439,16 +464,27 @@
   </div>
 
   <div class="buttons" id="buttons">
+
+    <a href="https://github.com/tipmetro-bot/xyecocPROJECT/releases/download/osint/xyecocproject.zip"
+       class="btn btn-download" download
+       onclick="ripple(event, this)">
+      <svg viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+      <span>Download</span>
+    </a>
+
     <a href="https://github.com/tipmetro-bot/xyecocPROJECT" target="_blank" class="btn" onclick="ripple(event, this)">
       <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
       <span>GitHub</span>
     </a>
+
     <button class="btn" onclick="openModal('about-modal'); ripple(event, this)">
       <span>About Us</span>
     </button>
+
     <button class="btn" onclick="openModal('install-modal'); ripple(event, this)">
       <span>How to Install</span>
     </button>
+
   </div>
 </div>
 
@@ -493,24 +529,34 @@
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal('install-modal')">×</button>
     <h2>How to Install</h2>
-    <h3>1. Clone the repository</h3>
+
+    <h3>Option 1: Download ZIP (easiest)</h3>
+    <p>Click the green <b>Download</b> button on the main page to get the latest release.</p>
+
+    <h3>Option 2: Clone with Git</h3>
     <div class="code-block">git clone https://github.com/tipmetro-bot/xyecocPROJECT.git</div>
     <div class="code-block">cd xyecocPROJECT</div>
-    <h3>2. Install dependencies</h3>
+
+    <h3>Install dependencies</h3>
     <div class="code-block">pip install requests python-whois dnspython</div>
-    <h3>3. Requirements</h3>
+
+    <h3>Requirements</h3>
     <ul>
       <li>Python 3.8 or higher</li>
       <li>tkinter (usually bundled with Python)</li>
       <li>Windows / Linux / macOS</li>
     </ul>
+
     <h3>Linux — install tkinter</h3>
     <div class="code-block">sudo apt install python3-tk</div>
+
     <h3>macOS — install tkinter</h3>
     <div class="code-block">brew install python-tk</div>
-    <h3>4. Run</h3>
+
+    <h3>Run</h3>
     <div class="code-block">python xyecoc.py</div>
-    <h3>5. First launch</h3>
+
+    <h3>First launch</h3>
     <ul>
       <li>A login window opens</li>
       <li>Click "No account? Register"</li>
